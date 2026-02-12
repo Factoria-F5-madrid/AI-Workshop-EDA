@@ -79,7 +79,7 @@ Es un **DataFrame**, una tabla donde cada fila es un pasajero y cada columna es 
 ```python
 df.head()
 ```
-<img width="1596" height="373" alt="image" src="https://github.com/user-attachments/assets/ac176bfd-1e53-4453-bf1d-eb18d2fc9832" />
+<img width="1596" height="373" src="https://github.com/user-attachments/assets/ac176bfd-1e53-4453-bf1d-eb18d2fc9832" />
 
 **¿Por qué?** Para ver cómo lucen los datos y qué columnas tenemos. Si quisieramos que nos devolviera más o menos de 5 filas, podemos simplemente indicarlo dentro del paréntesis: `df.head(15)`
 
@@ -101,7 +101,7 @@ print(f"Filas: {df.shape[0]}, Columnas: {df.shape[1]}")
 ```python
 df.info()
 ```
-<img width="509" height="509" alt="image" src="https://github.com/user-attachments/assets/529d3a4b-b133-4f96-b8a6-126b8426908f" />
+<img width="509" height="509" src="https://github.com/user-attachments/assets/529d3a4b-b133-4f96-b8a6-126b8426908f" />
 
 **¿Qué obtenemos?**
 - Tipos de datos (números, texto, etc.)
@@ -135,7 +135,7 @@ print(df.columns.tolist())
 ```python
 df.describe()
 ```
-<img width="1062" height="432" alt="image" src="https://github.com/user-attachments/assets/ff6e409d-61b5-4e8a-84d5-27b6d595798e" />
+<img width="1062" height="432" src="https://github.com/user-attachments/assets/ff6e409d-61b5-4e8a-84d5-27b6d595798e" />
 
 **¿Qué es esto?**  
 Un resumen estadístico de las columnas numéricas:
@@ -153,6 +153,7 @@ Para detectar valores extraños. Por ejemplo, si la edad máxima es 200, hay un 
 ```python
 df.describe(include='object')
 ```
+![alt](./assets/cat.png)
 
 Esto muestra:
 - **count**: Cuántos valores hay
@@ -169,6 +170,7 @@ Esto muestra:
 ```python
 print(df.isnull().sum())
 ```
+![alt](./assets/null.png)
 
 **¿Qué son valores faltantes?**  
 Datos que no existen (por ejemplo, edad desconocida). Aparecen como `NaN` (Not a Number).
@@ -202,6 +204,7 @@ df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
 print("Dataset después de eliminar columnas:")
 df.head()
 ```
+![alt text](./assets/image-1.png)
 
 **¿Por qué eliminamos estas columnas?**
 - `PassengerId`: Solo es un ID, no influye en la supervivencia
@@ -228,6 +231,7 @@ df['Age'].fillna(median_age, inplace=True)
 print(f"Valores de Age imputados con la mediana: {median_age}")
 df.head(10)
 ```
+![alt text](./assets/image-2.png)
 
 **¿Por qué la mediana y no el promedio?**  
 Si hay edades extremas (como 80 años), la mediana no se ve afectada tanto como el promedio.
@@ -285,6 +289,8 @@ print(df.columns.tolist())
 df.head()
 ```
 
+![alt text](./assets/image-3.png)
+
 **¿Por qué?**  
 Para hacer los nombres más descriptivos y fáciles de entender.
 
@@ -311,6 +317,7 @@ plt.ylabel('Count')  # Etiqueta del eje Y (cantidad de personas)
 plt.xticks(rotation=0)  # Mantener las etiquetas del eje X horizontales
 plt.show()
 ```
+![alt text](./assets/image-4.png)
 
 **¿Qué aprendemos?**  
 Cuántas personas sobrevivieron vs murieron. Este gráfico nos da una vista rápida del balance de supervivencia.
@@ -333,6 +340,7 @@ plt.ylabel('Count')  # Cantidad de personas
 plt.xticks(rotation=0)  # Etiquetas horizontales
 plt.show()
 ```
+![alt text](./assets/image-5.png)
 
 **¿Para qué sirve?**  
 Para saber cuántos hombres y mujeres iban en el Titanic. Esto nos ayudará más adelante a analizar si el género influyó en la supervivencia.
@@ -350,6 +358,8 @@ plt.xlabel('Age')  # Edad en años
 plt.ylabel('Frequency')  # Frecuencia (cuántas personas)
 plt.show()
 ```
+
+![alt text](./assets/image-6.png)
 
 **¿Qué es un histograma?**  
 Divide los datos en rangos (bins) y cuenta cuántos valores caen en cada rango.
@@ -371,6 +381,7 @@ plt.title('Fare Distribution')  # Distribución del precio de los tickets
 plt.ylabel('Fare')  # Precio del ticket en unidades monetarias
 plt.show()
 ```
+![alt text](./assets/image-7.png)
 
 **¿Qué es un boxplot?**  
 Muestra la distribución de datos:
@@ -412,6 +423,7 @@ plt.legend(['Did not survive', 'Survived'])  # Leyenda: rojo=murió, verde=sobre
 plt.xticks(rotation=0)  # Mantener etiquetas horizontales
 plt.show()
 ```
+![alt text](./assets/image-8.png)
 
 **Conclusión esperada:** Las mujeres tuvieron mayor tasa de supervivencia (política de "mujeres y niños primero").
 
@@ -432,6 +444,7 @@ plt.legend(['Did not survive', 'Survived'])  # Leyenda
 plt.xticks(rotation=0)
 plt.show()
 ```
+![alt text](./assets/image-9.png)
 
 **¿Qué es `stacked=True`?**  
 Apila las barras una sobre otra en lugar de ponerlas lado a lado. Así vemos el total de personas por clase.
@@ -455,6 +468,7 @@ plt.ylabel('Frequency')  # Frecuencia (cuántas personas)
 plt.legend()  # Mostrar leyenda
 plt.show()
 ```
+![alt text](./assets/image-11.png)
 
 **¿Qué es `alpha=0.5`?**  
 Transparencia del gráfico (0 = invisible, 1 = opaco). Permite ver ambos histogramas superpuestos.
@@ -474,6 +488,7 @@ plt.xlabel('Survived (0 = No, 1 = Yes)')  # Supervivencia
 plt.ylabel('Fare')  # Precio del ticket
 plt.show()
 ```
+![alt text](./assets/image-10.png)
 
 **¿Para qué sirve?**  
 Para ver si pagar más dinero (probablemente primera clase) aumentó las posibilidades de sobrevivir. Los tickets más caros suelen estar en mejores ubicaciones del barco.
@@ -496,6 +511,7 @@ correlation = numeric_df.corr()
 print("Matriz de correlación entre variables numéricas:")
 print(correlation)
 ```
+
 
 **¿Qué es correlación?**  
 Mide qué tan relacionadas están dos variables (-1 a 1):
@@ -521,6 +537,7 @@ plt.title('Correlation Matrix - Titanic Dataset')  # Título
 plt.tight_layout()  # Ajusta el gráfico para que no se corten las etiquetas
 plt.show()
 ```
+![alt text](./assets/image-12.png)
 
 **¿Qué es un heatmap?**  
 Un gráfico donde los colores representan valores:
@@ -546,6 +563,8 @@ sns.pairplot(numeric_df, hue='Survived', palette={0: 'red', 1: 'green'},
 plt.suptitle('Pairplot of Numeric Variables by Survival', y=1.02)  # Título general
 plt.show()
 ```
+![alt text](./assets/image-13.png)
+![alt text](./assets/image-14.png)
 
 **¿Qué es un pairplot?**  
 Crea una matriz de gráficos mostrando todas las combinaciones posibles de variables. En la diagonal muestra histogramas de cada variable.
@@ -573,6 +592,7 @@ df['Family_Size'] = df['Siblings_Spouses'] + df['Parents_Children'] + 1
 print("Nueva columna Family_Size creada:")
 df[['Siblings_Spouses', 'Parents_Children', 'Family_Size']].head(10)
 ```
+![alt text](./assets/image-15.png)
 
 **¿Por qué creamos esta variable?**  
 Para ver si viajar en familia influyó en la supervivencia. Alguien solo tiene Family_Size=1, mientras que una familia de 4 tiene Family_Size=4.
@@ -585,6 +605,8 @@ plt.xlabel('Family Size')  # Tamaño de familia (1=solo, 2+=con familia)
 plt.ylabel('Count')  # Cantidad de personas
 plt.show()
 ```
+
+![alt text](./assets/image-16.png)
 
 ### 9.2 Crear variable Is_Alone
 
@@ -611,6 +633,7 @@ plt.xticks(rotation=0)
 plt.legend(['Did not survive', 'Survived'])
 plt.show()
 ```
+![alt text](./assets/image-17.png)
 
 **¿Para qué sirve?**  
 Para investigar si estar solo fue una ventaja o desventaja. Quizás los que viajaban solos se movieron más rápido hacia los botes salvavidas.
@@ -645,6 +668,7 @@ plt.legend(['Did not survive', 'Survived'])
 plt.tight_layout()  # Ajustar para que no se corten las etiquetas
 plt.show()
 ```
+![alt text](./assets/image-18.png)
 
 **¿Para qué sirve?**  
 Para confirmar si los niños (Child) tuvieron más prioridad de supervivencia que los adultos, como sugiere la frase histórica "mujeres y niños primero".
@@ -747,7 +771,3 @@ Después de completar este EDA:
 2. **Feature Engineering avanzado**: Crear variables más complejas
 3. **Validación**: Dividir datos en train/test
 4. **Optimización**: Probar diferentes modelos y parámetros
-
----
-
-**¡Felicidades!** 🎉 Has completado tu primer EDA. Ahora entiendes mucho mejor qué pasó en el Titanic y qué factores influyeron en quién sobrevivió.
