@@ -545,30 +545,6 @@ Muestra los números dentro de cada celda para saber el valor exacto.
 **¿Para qué sirve?**  
 Para identificar rápidamente qué variables están más relacionadas con 'Survived'. Por ejemplo, si 'Passenger_Class' tiene correlación negativa con 'Survived', significa que clases más altas (3) sobrevivieron menos.
 
-### 8.3 Pairplot (gráficos de pares)
-
-```python
-# Visualizar relaciones entre todas las variables numéricas
-# hue='Survived' colorea los puntos según si sobrevivieron (verde) o no (rojo)
-# palette={0: 'red', 1: 'green'} define los colores específicos
-# Este gráfico puede tardar un poco porque crea muchas visualizaciones
-sns.pairplot(numeric_df, hue='Survived', palette={0: 'red', 1: 'green'}, 
-             diag_kind='hist', plot_kws={'alpha': 0.6})
-plt.suptitle('Pairplot of Numeric Variables by Survival', y=1.02)  # Título general
-plt.show()
-```
-![alt text](./assets/image-13.png)
-![alt text](./assets/image-14.png)
-
-**¿Qué es un pairplot?**  
-Crea una matriz de gráficos mostrando todas las combinaciones posibles de variables. En la diagonal muestra histogramas de cada variable.
-
-**¿Qué es `hue='Survived'`?**  
-Colorea los puntos según si sobrevivieron o no. Esto nos ayuda a ver patrones de supervivencia.
-
-**¿Para qué sirve?**  
-Para identificar visualmente relaciones complejas entre múltiples variables. Por ejemplo, podemos ver si hay un patrón entre edad, precio del ticket y supervivencia simultáneamente.
-
 ---
 
 ## 📊 Paso 9: Feature Engineering Básico
