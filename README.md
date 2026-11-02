@@ -14,10 +14,10 @@ Vamos a analizar el dataset del Titanic para entender qué características (eda
 Antes de comenzar, instala las librerías necesarias (si trabajas en un Jupyter notebook en local):
 
 ```bash
-pip install pandas numpy matplotlib seaborn kagglehub
+pip install pandas numpy matplotlib seaborn kagglehub missingno
 ```
 
-**Nota**: Para usar `kagglehub`, necesitas tener una cuenta en [Kaggle](https://www.kaggle.com/) y autenticarte. La primera vez que ejecutes el código, te pedirá autenticación.
+**Nota**: `kagglehub` descarga este dataset público sin necesidad de cuenta. Si te pidiera autenticación, crea una cuenta gratuita en [Kaggle](https://www.kaggle.com/).
 
 ---
 
@@ -151,7 +151,7 @@ Para detectar valores extraños. Por ejemplo, si la edad máxima es 200, hay un 
 ### Estadística para columnas categóricas
 
 ```python
-df.describe(include='object')
+df.describe(exclude='number')
 ```
 ![alt](./assets/cat.png)
 
@@ -215,7 +215,7 @@ df.head()
 **¿Qué es `axis=1`?**  
 Significa que eliminamos **columnas**. `axis=0` eliminaría **filas**.
 
-### 4.4 Imputación de valores faltantes
+### 4.4 Imputar valores faltantes en Age
 
 **¿Qué es imputación?**  
 Rellenar valores faltantes con valores estimados.
@@ -225,7 +225,7 @@ Rellenar valores faltantes con valores estimados.
 ```python
 # La mediana es más robusta que el promedio ante valores extremos
 median_age = df['Age'].median()
-df['Age'].fillna(median_age, inplace=True)
+df['Age'] = df['Age'].fillna(median_age)
 
 # Ver las primeras filas para confirmar que se llenaron los valores faltantes
 print(f"Valores de Age imputados con la mediana: {median_age}")
@@ -236,15 +236,17 @@ df.head(10)
 **¿Por qué la mediana y no el promedio?**  
 Si hay edades extremas (como 80 años), la mediana no se ve afectada tanto como el promedio.
 
-**¿Qué es `inplace=True`?**  
-Modifica el DataFrame original directamente, sin crear una copia.
+**¿Por qué `df['Age'] = df['Age'].fillna(...)`?**  
+`fillna` devuelve una columna nueva con los huecos rellenados; la guardamos de vuelta en `df['Age']`. (No uses `inplace=True` sobre una columna: en pandas 3 no hace nada.)
+
+### 4.5 Imputar valores faltantes en Embarked
 
 #### Imputar Embarked (puerto de embarque) con la moda
 
 ```python
 # La moda es el valor más frecuente
 mode_embarked = df['Embarked'].mode()[0]
-df['Embarked'].fillna(mode_embarked, inplace=True)
+df['Embarked'] = df['Embarked'].fillna(mode_embarked)
 
 # Verificar que se imputaron los valores
 print(f"Valores de Embarked imputados con la moda: {mode_embarked}")
@@ -253,16 +255,6 @@ df.head(10)
 
 **¿Por qué la moda?**  
 Para datos categóricos (texto), usamos el valor más común.
-
-### 4.5 Eliminar filas con valores faltantes restantes
-
-```python
-# Si quedan pocos valores faltantes, podemos eliminar esas filas
-df = df.dropna()
-```
-
-**¿Cuándo hacer esto?**  
-Solo cuando quedan muy pocas filas con valores faltantes (<5% del total).
 
 ### 4.6 Verificar que no queden valores faltantes
 
@@ -469,6 +461,8 @@ plt.legend()  # Mostrar leyenda
 plt.show()
 ```
 ![alt text](./assets/image-11.png)
+
+**Ojo con la barra alta cerca de los 28 años:** son los 177 pasajeros sin edad que rellenamos con la mediana (28). No es un patrón real de los datos, es un efecto de nuestra imputación.
 
 **¿Qué es `alpha=0.5`?**  
 Transparencia del gráfico (0 = invisible, 1 = opaco). Permite ver ambos histogramas superpuestos.
